@@ -3,8 +3,8 @@ import uploadProfilePic from "../assets/upload.png"
 import { Link, useNavigate } from "react-router-dom"
 const RegisterPage = () => {
     const [formData , setFromData] = useState({
-        FirstName:"",
-        LastName:"",
+        firstName:"",
+        lastName:"",
         email:"",
         password: "",
         confirmPassword: "",
@@ -32,14 +32,14 @@ console.log(formData);
                 placeholder='First Name' 
                 name='FirstName' 
                 className='p-3 rounded-lg border ' 
-                 value={formData.FirstName}
+                 value={formData.firstName}
           onChange={handleChange} required />
 
                 <input type="text"  
                 placeholder='Last Name' 
                 name='LastName' 
                 className='p-3 rounded-lg border'  
-                value={formData.LastName}
+                value={formData.lastName}
           onChange={handleChange} required/>
 
                 <input type="email" 
