@@ -1,6 +1,7 @@
 import User from "../models/user.model.js"
 import bcrypt from  "bcryptjs"
 import jwt from "jsonwebtoken"
+import { errorHandler } from "../utils/error.js";
 
 export const register = async (req, res, next) => {
     try {
@@ -20,7 +21,7 @@ export const register = async (req, res, next) => {
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(409).json({ message: "User already exists" });
+            return next(errorHandler(409, "User Already exists! "))
         }
 
         const hashedPassword = bcrypt.hashSync(password, 10);
@@ -42,17 +43,17 @@ export const register = async (req, res, next) => {
 };
 
 
-export const login = async(req,res) =>{
+export const login = async(req,res,next) =>{
     try {
         const {email , password} =req.body 
         const validUser = await User.findOne({email})
 
         if(!validUser){
-            return res(409).json({message:"User doesn't exists! "})
+            return next(errorHandler(409, "User not found! "))
         }
         const validPassword = bcrypt.compareSync(password,validUser.password)
         if(!validPassword){
-            return res(400).json({message:"Wrong Credentials! "})
+            return next(errorHandler(409, "Wrong Credentials! "))
         }
         const token = jwt.sign({id:validUser._id}, process.env.JWT_SECRET)
 
@@ -61,7 +62,6 @@ export const login = async(req,res) =>{
         res.status(200).json({ token, rest })
 
     } catch (error) {
-        console.log(error)
-        res.status(500).json({error:error.message})
+       next(error)
     }
 }
