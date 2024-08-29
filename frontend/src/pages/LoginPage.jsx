@@ -29,9 +29,9 @@ const[password , setPassword] = useState("")
 
 
          </form>
-         
+
          <div className="mt-5 flex gap-2">
-        <p>Don't  have an account ?</p>
+        <p> Don't  have an account ?</p>
 
         <Link to={"/register"}>
           <span className="text-blue-700">Sign Up</span>
