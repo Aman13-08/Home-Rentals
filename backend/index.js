@@ -23,8 +23,10 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
 
 
  import authRoutes from "./routes/auth.route.js"
-
+import  listingRoutes from "./routes/listing.route.js"
  app.use("/api/auth", authRoutes)
+app.use("/api/listing", listingRoutes)
+
 
  app.use((err,req,res,next)=>{
     const statusCode = err.statusCode || 500
